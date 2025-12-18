@@ -1,7 +1,5 @@
-/* 🌈 Wrapper – mobile-safe */
 .popup-wrapper {
   min-height: 100dvh;
-  /* dynamic viewport height */
   width: 100%;
   background: linear-gradient(160deg, #fce7f3, #e0f2fe);
   display: flex;
@@ -10,83 +8,78 @@
   justify-content: center;
   text-align: center;
   padding: 12px;
-  /* reduced padding */
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
 }
 
-/* ❌ Side decor default off (enable only on large screens) */
-.side {
-  display: none;
-}
-
-/* ✨ Floating emojis */
-.floating {
-  position: absolute;
-  top: 8%;
-  font-size: 1.2rem;
-  opacity: 0.1;
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(16px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* 🎉 Header – strictly controlled */
+/* Header */
 .header-text {
   font-family: "Pacifico", cursive;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #ff3b7f;
   margin-bottom: 10px;
-  line-height: 1.2;
   text-shadow: 0 4px 12px rgba(255, 59, 127, 0.35);
 }
 
-/* 🧊 Popup Card – HARD LIMITS */
+/* 🧊 Card */
 .popup-card {
-  background: rgba(255, 255, 255, 0.72);
+  position: relative;
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 18px;
   padding: 14px;
   width: 100%;
   max-width: 260px;
-  /* 🔥 KEY FIX FOR 320px */
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.45);
   box-sizing: border-box;
+  z-index: 1;
 }
 
-/* 🧸 Teddy GIF – limited size */
+/* ✨ Gradient Animated Border */
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 20px;
+  background: linear-gradient(270deg,
+      #ff5f9e,
+      #a855f7,
+      #38bdf8,
+      #ff5f9e);
+  background-size: 600% 600%;
+  animation: borderMove 8s linear infinite;
+  z-index: -1;
+}
+
+@keyframes borderMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Teddy */
 .teddy-gif {
   width: 120px;
-  max-width: 100%;
-  height: auto;
   margin-bottom: 10px;
 }
 
-/* 💬 Quote */
+/* Quote typing */
 .quote {
   font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
-  color: #333;
   font-weight: 500;
   line-height: 1.4;
+  color: #333;
+  min-height: 2.5em;
+  /* prevents layout jump */
 }
 
-/* 💝 Footer */
+/* Footer */
 .footer-text {
   margin-top: 10px;
   font-family: "Poppins", sans-serif;
@@ -95,34 +88,47 @@
   max-width: 260px;
 }
 
-/* 📱 Enable side decor ONLY for big screens */
+/* Larger screens */
 @media (min-width: 768px) {
-  .side {
-    display: block;
-    position: absolute;
-    top: 32%;
-    font-size: 2.4rem;
-    opacity: 0.22;
-    pointer-events: none;
-  }
-
-  .left-side {
-    left: 3%;
-  }
-
-  .right-side {
-    right: 3%;
-  }
-
   .popup-card {
     max-width: 340px;
+    padding: 22px;
+  }
+
+  .teddy-gif {
+    width: 165px;
   }
 
   .header-text {
     font-size: 2.2rem;
   }
 
-  .teddy-gif {
-    width: 165px;
+  .quote {
+    font-size: 1.1rem;
+  }
+}
+
+/* 🌸 LEFT & RIGHT DECOR */
+.side {
+  position: absolute;
+  top: 30%;
+  font-size: 2.4rem;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.left-side {
+  left: 4%;
+}
+
+.right-side {
+  right: 4%;
+}
+
+/* ❌ Hide on small devices (320–600px) */
+@media (max-width: 600px) {
+  .side {
+    display: none;
   }
 }

@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 
 const slides = [
+
+
     {
         id: 1,
         gif: "https://media.tenor.com/4XuyEUtrRCoAAAAm/kiss-cute.webp",
@@ -32,16 +34,44 @@ const slides = [
 
 export default function NewYearPopupSlider() {
     const [index, setIndex] = useState(0);
+    const [visibleWords, setVisibleWords] = useState(0);
 
+    // Auto slide
     useEffect(() => {
         const timer = setInterval(() => {
             setIndex((prev) => (prev + 1) % slides.length);
         }, 6000);
+
         return () => clearInterval(timer);
     }, []);
 
+    // Reset typing on slide change
+    useEffect(() => {
+        setVisibleWords(0);
+        const words = slides[index].quote.split(" ");
+
+        const typing = setInterval(() => {
+            setVisibleWords((prev) =>
+                prev < words.length ? prev + 1 : prev
+            );
+        }, 300);
+
+        return () => clearInterval(typing);
+    }, [index]);
+
+    const words = slides[index].quote.split(" ");
+
     return (
         <div className="popup-wrapper">
+            {/* 🎉 Header */}
+            <motion.h1
+                className="header-text"
+                animate={{ opacity: [0.8, 1, 0.8] }}
+                transition={{ duration: 3, repeat: Infinity }}
+            >
+                💖✨  Happy New Year 2026    ✨💖
+            </motion.h1>
+
             {/* 🌸 LEFT DECOR */}
             <motion.div
                 className="side left-side"
@@ -64,27 +94,16 @@ export default function NewYearPopupSlider() {
                 🎊
             </motion.div>
 
-            {/* ✨ Floating emojis center */}
-            <div className="floating">✨ 🎊 💖 ✨</div>
-
-            {/* 🎉 Header */}
-            <motion.h1
-                className="header-text"
-                animate={{ opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 3, repeat: Infinity }}
-            >
-                💖✨ Happy New Year 2026 ✨💖
-            </motion.h1>
 
             {/* 🎁 Slider */}
             <AnimatePresence mode="wait">
                 <motion.div
                     key={slides[index].id}
-                    className="popup-card"
-                    initial={{ y: 80, opacity: 0, scale: 0.95 }}
+                    className="popup-card gradient-border"
+                    initial={{ y: 60, opacity: 0, scale: 0.96 }}
                     animate={{ y: 0, opacity: 1, scale: 1 }}
-                    exit={{ y: -80, opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 1.4, ease: "easeInOut" }}
+                    exit={{ y: -60, opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 1.2, ease: "easeInOut" }}
                 >
                     <img
                         src={slides[index].gif}
@@ -92,21 +111,22 @@ export default function NewYearPopupSlider() {
                         className="teddy-gif"
                     />
 
-                    <motion.p
-                        className="quote"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                    >
-                        {slides[index].quote}
-                    </motion.p>
+                    {/* ✍️ Typing Quote */}
+                    <p className="quote">
+                        {words.slice(0, visibleWords).join(" ")}
+                    </p>
                 </motion.div>
             </AnimatePresence>
 
             {/* 💝 Footer */}
             <p className="footer-text">
-                Wishing you peace, growth & beautiful moments From "NAVEEN KUMAR BADODIYA" 🌈
+                  ❤️Wishing you peace, growth & beautiful moments ❤️<br />
+                             💕🌟 NAVEEN KUMAR BADODIYA🌟💕
+
             </p>
         </div>
     );
 }
+
+
+
