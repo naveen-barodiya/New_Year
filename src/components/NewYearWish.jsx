@@ -105,7 +105,7 @@ export default function NewYearPopupSlider() {
 
             {/* 💝 Footer */}
             <p className="footer-text">
-                Wishing you peace, growth & beautiful moments 🌈
+                Wishing you peace, growth & beautiful moments From "NAVEEN KUMAR BADODIYA" 🌈
             </p>
         </div>
     );
