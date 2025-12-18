@@ -73,7 +73,7 @@ export default function NewYearPopupSlider() {
                 animate={{ opacity: [0.8, 1, 0.8] }}
                 transition={{ duration: 3, repeat: Infinity }}
             >
-                Happy New Year 2026
+                💖✨ Happy New Year 2026 ✨💖
             </motion.h1>
 
             {/* 🎁 Slider */}
