@@ -1,7 +1,7 @@
-/* 🌈 Root wrapper */
+/* 🌈 Wrapper – mobile-safe */
 .popup-wrapper {
-  min-height: 100svh;
-  /* better than 100vh on mobile */
+  min-height: 100dvh;
+  /* dynamic viewport height */
   width: 100%;
   background: linear-gradient(160deg, #fce7f3, #e0f2fe);
   display: flex;
@@ -9,35 +9,25 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: clamp(14px, 4vw, 24px);
+  padding: 12px;
+  /* reduced padding */
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* 🌸 LEFT & RIGHT DECOR */
+/* ❌ Side decor default off (enable only on large screens) */
 .side {
-  position: absolute;
-  top: 32%;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  opacity: 0.22;
-  pointer-events: none;
-}
-
-.left-side {
-  left: 3%;
-}
-
-.right-side {
-  right: 3%;
+  display: none;
 }
 
 /* ✨ Floating emojis */
 .floating {
   position: absolute;
-  top: 10%;
-  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-  opacity: 0.12;
-  animation: float 7s ease-in-out infinite;
+  top: 8%;
+  font-size: 1.2rem;
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -46,7 +36,7 @@
   }
 
   50% {
-    transform: translateY(22px);
+    transform: translateY(16px);
   }
 
   100% {
@@ -54,76 +44,85 @@
   }
 }
 
-/* 🎉 Header */
+/* 🎉 Header – strictly controlled */
 .header-text {
   font-family: "Pacifico", cursive;
-  font-size: clamp(1.6rem, 5vw, 2.3rem);
+  font-size: 1.4rem;
   color: #ff3b7f;
-  margin-bottom: clamp(10px, 3vw, 18px);
-  text-shadow: 0 6px 16px rgba(255, 59, 127, 0.35);
+  margin-bottom: 10px;
+  line-height: 1.2;
+  text-shadow: 0 4px 12px rgba(255, 59, 127, 0.35);
 }
 
-/* 🧊 Glass card */
+/* 🧊 Popup Card – HARD LIMITS */
 .popup-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: 24px;
-  padding: clamp(18px, 4vw, 26px);
-  width: min(90%, 340px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 14px;
+  width: 100%;
+  max-width: 260px;
+  /* 🔥 KEY FIX FOR 320px */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.45);
+  box-sizing: border-box;
 }
 
-/* 🧸 Teddy GIF */
+/* 🧸 Teddy GIF – limited size */
 .teddy-gif {
-  width: clamp(120px, 45vw, 170px);
-  margin-bottom: clamp(12px, 3vw, 18px);
+  width: 120px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 /* 💬 Quote */
 .quote {
   font-family: "Poppins", sans-serif;
-  font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+  font-size: 0.9rem;
   color: #333;
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 /* 💝 Footer */
 .footer-text {
-  margin-top: clamp(14px, 3vw, 22px);
+  margin-top: 10px;
   font-family: "Poppins", sans-serif;
-  font-size: clamp(0.8rem, 3vw, 0.95rem);
+  font-size: 0.8rem;
   color: #555;
-  max-width: 90%;
+  max-width: 260px;
 }
 
-/* 📱 Phones (small height devices) */
-@media (max-height: 700px) {
-  .header-text {
-    margin-bottom: 10px;
-  }
-
-  .footer-text {
-    margin-top: 12px;
-  }
-}
-
-/* 📱 Mobile clean view */
-@media (max-width: 600px) {
+/* 📱 Enable side decor ONLY for big screens */
+@media (min-width: 768px) {
   .side {
-    display: none;
+    display: block;
+    position: absolute;
+    top: 32%;
+    font-size: 2.4rem;
+    opacity: 0.22;
+    pointer-events: none;
   }
-}
 
-/* 📱 Very small phones (like old Android / SE) */
-@media (max-width: 360px) {
+  .left-side {
+    left: 3%;
+  }
+
+  .right-side {
+    right: 3%;
+  }
+
   .popup-card {
-    padding: 16px;
+    max-width: 340px;
+  }
+
+  .header-text {
+    font-size: 2.2rem;
   }
 
   .teddy-gif {
-    width: 115px;
+    width: 165px;
   }
 }
